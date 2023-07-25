@@ -1,16 +1,15 @@
 package eu.tutorials.testapp
 
 import android.app.Application
+import android.content.Context
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
-class AppModule(private val application: Application) {
+class AppModule(private val context: Context) {
 
     @Provides
-    fun provideApplication(): Application {
-        return application
-    }
-
-    // Provide other dependencies here...
+    @Singleton
+    fun providesApplicationContext(): Context = context
 }

@@ -6,6 +6,5 @@ object UserData {
     val userList = listOf(
         User("john", "password123"),
         User("GG", "1234")
-
     )
 }

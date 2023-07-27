@@ -1,15 +1,19 @@
 package eu.tutorials.testapp
 
 import android.app.Application
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 
-class AwesomeApplication : Application() {
+class AwesomeApplication : DaggerApplication() {
 
     lateinit var appComponent: AppComponent
     override fun onCreate() {
         super.onCreate()
-        appComponent =  DaggerAppComponent.builder()
-            .appModule(AppModule(this))
-            .build()
-        appComponent.inject(this)
+    }
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent
+            .factory()
+            .create(this)
     }
 }

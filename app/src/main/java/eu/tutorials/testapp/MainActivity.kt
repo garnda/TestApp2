@@ -17,6 +17,8 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private lateinit var vm: MainViewModel
 
+    private lateinit var appPreferences: AppPreferences
+
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -13,7 +13,10 @@ abstract class MainViewModel : ViewModel() {
     abstract fun validateCredentials(username: String, password: String)
 }
 
-class MainViewModelImpl  @Inject constructor() : MainViewModel() {
+class MainViewModelImpl  @Inject constructor(
+    private val useCase: ValidateLoginUseCase,
+    private val appSharePreferences: AppPreferences
+) : MainViewModel() {
     private val _onLoginSuccess = MutableLiveData(Unit)
     private val _onLoginFailure = MutableLiveData(Unit)
 
@@ -23,10 +26,13 @@ class MainViewModelImpl  @Inject constructor() : MainViewModel() {
         get() = _onLoginFailure
 
     override fun validateCredentials(username: String, password: String) {
-        if (username == "gg" && password == "1234") {
+        val isValid = useCase.execute(username, password)
+        if (isValid) {
+            appSharePreferences.isLoggedIn = true
             onLoginSuccess.value = Unit
         } else {
             onLoginFailure.value = Unit
+            appSharePreferences.isLoggedIn = false
         }
     }
 

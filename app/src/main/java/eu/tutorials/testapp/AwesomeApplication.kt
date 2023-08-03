@@ -1,8 +1,8 @@
 package eu.tutorials.testapp
 
-import android.app.Application
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
+import eu.tutorials.testapp.di.AppComponent
 
 class AwesomeApplication : DaggerApplication() {
 

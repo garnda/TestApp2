@@ -1,4 +1,4 @@
-package eu.tutorials.testapp
+package eu.tutorials.testapp.di
 
 import javax.inject.Scope
 

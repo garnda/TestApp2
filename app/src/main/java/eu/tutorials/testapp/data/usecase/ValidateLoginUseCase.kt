@@ -1,4 +1,4 @@
-package eu.tutorials.testapp
+package eu.tutorials.testapp.data.usecase
 
 import javax.inject.Inject
 

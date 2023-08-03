@@ -1,21 +1,10 @@
-package eu.tutorials.testapp
-
-import android.content.Context
+package eu.tutorials.testapp.data.preference
 import android.content.SharedPreferences
-import dagger.Provides
-import javax.inject.Singleton
-import android.preference.PreferenceManager
 import javax.inject.Inject
 
 class AppPreferences @Inject constructor(
     private val preferences: SharedPreferences
 ) {
-
-    @Provides
-    @Singleton
-    fun sharedPreferences(context: Context): SharedPreferences {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-    }
 
     companion object {
         private const val KEY_IS_LOGGED_IN = "isLoggedIn"

@@ -1,8 +1,9 @@
-package eu.tutorials.testapp
+package eu.tutorials.testapp.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dagger.MapKey
+import eu.tutorials.testapp.di.ActivityScope
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass

@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.DaggerAppCompatActivity
 import eu.tutorials.testapp.databinding.ActivityMainBinding
 import eu.tutorials.testapp.utils.ActivityViewModelFactory
-import eu.tutorials.testapp.data.preference.AppPreferences
 import javax.inject.Inject
 
 
@@ -18,8 +17,6 @@ class MainActivity : DaggerAppCompatActivity() {
     @Inject lateinit var viewModelFactory: ActivityViewModelFactory
 
     private lateinit var vm: MainViewModel
-
-    private lateinit var appPreferences: AppPreferences
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {

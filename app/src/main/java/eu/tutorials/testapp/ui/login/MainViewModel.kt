@@ -33,8 +33,8 @@ class MainViewModelImpl  @Inject constructor(
             appSharePreferences.isLoggedIn = true
             onLoginSuccess.value = Unit
         } else {
-            onLoginFailure.value = Unit
             appSharePreferences.isLoggedIn = false
+            onLoginFailure.value = Unit
         }
     }
 

@@ -1,19 +1,21 @@
-package eu.tutorials.testapp
+package eu.tutorials.testapp.di
 
 import android.app.Application
-import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
-import dagger.android.support.AndroidSupportInjectionModule
-import javax.inject.Singleton
+import eu.tutorials.testapp.AwesomeApplication
+import eu.tutorials.testapp.di.module.*
 
 @ApplicationScope
 @Component(
     modules = [
         AndroidInjectionModule::class,
-        ActivityModule::class]
+        AppModule::class,
+        ActivityModule::class,
+        StorageModule::class
+    ]
 )
 interface AppComponent : AndroidInjector<AwesomeApplication> {
     @Component.Factory

@@ -1,8 +1,9 @@
 package eu.tutorials.testapp
 
-import android.app.Application
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
+import eu.tutorials.testapp.di.AppComponent
+import eu.tutorials.testapp.di.DaggerAppComponent
 
 class AwesomeApplication : DaggerApplication() {
 
@@ -12,8 +13,9 @@ class AwesomeApplication : DaggerApplication() {
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent
+        appComponent = DaggerAppComponent
             .factory()
             .create(this)
+        return appComponent
     }
 }

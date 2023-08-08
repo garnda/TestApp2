@@ -1,4 +1,4 @@
-package eu.tutorials.testapp
+package eu.tutorials.testapp.ui.login
 
 import android.os.Bundle
 import android.text.Editable
@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.DaggerAppCompatActivity
 import eu.tutorials.testapp.databinding.ActivityMainBinding
+import eu.tutorials.testapp.utils.ActivityViewModelFactory
 import javax.inject.Inject
 
 

@@ -1,8 +1,9 @@
-package eu.tutorials.testapp
+package eu.tutorials.testapp.di.module
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import javax.inject.Scope
+import eu.tutorials.testapp.di.ActivityScope
+import eu.tutorials.testapp.ui.login.MainActivity
 
 @Module
 interface ActivityModule {

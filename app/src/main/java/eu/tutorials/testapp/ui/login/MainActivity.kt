@@ -79,6 +79,13 @@ class MainActivity : DaggerAppCompatActivity() {
         val pattern = Regex("^[a-zA-Z0-9]+$")
         return pattern.matches(username)
     }
+
+//    private fun navigateToHomeActivity() {
+//        val intent = Intent(this, HomeActivity::class.java)
+//        startActivity(intent)
+//        finish()
+//    }
+
 }
 
 

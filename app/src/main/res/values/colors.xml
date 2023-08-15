@@ -3,9 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFFCA311</color>
-    <color name="lightgray">#FFE5E5E5</color>
+    <color name="lightGray">#FFE5E5E5</color>
     <color name="navy">#14213D</color>
-    <color name="bluegray">#FF4F5D75</color>
+    <color name="blueGray">#FF4F5D75</color>
     <color name="gray">#FFBFC0C0</color>
 
     <color name="colorPrimary">#FF4F5D75</color>

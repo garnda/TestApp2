@@ -1,5 +1,6 @@
 package eu.tutorials.testapp.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +8,7 @@ import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.DaggerAppCompatActivity
+import eu.tutorials.testapp.HomeActivity
 import eu.tutorials.testapp.databinding.ActivityMainBinding
 import eu.tutorials.testapp.utils.ActivityViewModelFactory
 import javax.inject.Inject
@@ -59,10 +61,12 @@ class MainActivity : DaggerAppCompatActivity() {
     private fun initViewModel() {
         vm.onLoginSuccess.observe(this){
           Log.d("minemine","onLoginSuccess")
+//            navigateToHomeActivity()
         }
 
         vm.onLoginFailure.observe(this){
             Log.d("minemine","onLoginFailure")
+            showLoginFailurePopup()
         }
     }
 
@@ -78,6 +82,12 @@ class MainActivity : DaggerAppCompatActivity() {
     private fun isUsernameValid(username: String): Boolean {
         val pattern = Regex("^[a-zA-Z0-9]+$")
         return pattern.matches(username)
+    }
+
+    private fun navigateToHomeActivity() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
 

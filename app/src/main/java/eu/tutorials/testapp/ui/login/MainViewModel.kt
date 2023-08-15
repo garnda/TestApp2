@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 abstract class MainViewModel : ViewModel() {
 
-    abstract val onLoginSuccess: MutableLiveData<Unit>
+    abstract val onLoginSuccess: MutableLiveData<Unit?>
 
     abstract val onLoginFailure: MutableLiveData<Unit>
 
@@ -22,7 +22,7 @@ class MainViewModelImpl  @Inject constructor(
     private val _onLoginSuccess = MutableLiveData(Unit)
     private val _onLoginFailure = MutableLiveData(Unit)
 
-    override val onLoginSuccess: MutableLiveData<Unit>
+    override val onLoginSuccess: MutableLiveData<Unit?>
         get() = _onLoginSuccess
     override val onLoginFailure: MutableLiveData<Unit>
         get() = _onLoginFailure

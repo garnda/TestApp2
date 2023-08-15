@@ -61,7 +61,7 @@ class MainActivity : DaggerAppCompatActivity() {
     private fun initViewModel() {
         vm.onLoginSuccess.observe(this){
           Log.d("minemine","onLoginSuccess")
-//            navigateToHomeActivity()
+            navigateToHomeActivity()
         }
 
         vm.onLoginFailure.observe(this){

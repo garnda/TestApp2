@@ -1,5 +1,6 @@
 package eu.tutorials.testapp.ui.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.DaggerAppCompatActivity
 import eu.tutorials.testapp.HomeActivity
+import eu.tutorials.testapp.data.preference.AppPreferences
 import eu.tutorials.testapp.databinding.ActivityMainBinding
 import eu.tutorials.testapp.utils.ActivityViewModelFactory
 import javax.inject.Inject
@@ -17,6 +19,8 @@ import javax.inject.Inject
 class MainActivity : DaggerAppCompatActivity() {
 
     @Inject lateinit var viewModelFactory: ActivityViewModelFactory
+
+    @Inject lateinit var appPreferences: AppPreferences
 
     private lateinit var vm: MainViewModel
 
@@ -27,16 +31,15 @@ class MainActivity : DaggerAppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initViewModel()
-
+        if (appPreferences.isLoggedIn == true) {
+            navigateToHomeActivity()
+            return
+        }
         binding.btnLogin.setOnClickListener {
             Log.d("onclick>", "Click BTN>>>>>>")
 
             val username = binding.etInputUsername.text.toString()
             val password = binding.etInputPassword.text.toString()
-            Log.d(
-                "LoginActivity",
-                "Login button clicked - Username: $username, Password: $password"
-            )
             vm.validateCredentials(username, password)
         }
 
@@ -61,6 +64,7 @@ class MainActivity : DaggerAppCompatActivity() {
     private fun initViewModel() {
         vm.onLoginSuccess.observe(this){
           Log.d("minemine","onLoginSuccess")
+            appPreferences.isLoggedIn = true
             navigateToHomeActivity()
         }
 
@@ -86,7 +90,9 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private fun navigateToHomeActivity() {
         val intent = Intent(this, HomeActivity::class.java)
+//        intent.put
         startActivity(intent)
+
         finish()
     }
 }

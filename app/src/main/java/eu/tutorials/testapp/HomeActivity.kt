@@ -31,8 +31,8 @@ class HomeActivity : DaggerAppCompatActivity() {
     private fun initView() {
         val menuList = listOf(
             Menu(1, "One", R.drawable.cake,"cake"),
-            Menu(2, "Two" , R.drawable.cupcake,"cake"),
-            Menu(3,"Three",R.drawable.pudding,"cake"),
+            Menu(2, "Two" , R.drawable.cupcake,"cupcake"),
+            Menu(3,"Three",R.drawable.pudding,"pudding"),
             Menu(4,"Four",R.drawable.cake,"cake"),
             Menu(5,"Five",R.drawable.cake,"cake")
         )
@@ -50,20 +50,14 @@ class HomeActivity : DaggerAppCompatActivity() {
                     }
                     startActivity(intent)
 
-//                  intent.
-//                   val menu = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//                        intent.getParcelableExtra("MENU",Menu::class.java)
-//                    }else{
-//                        intent.getParcelableExtra<Menu>("MENU")
-//                    }
 
-                    AlertDialog.Builder(this@HomeActivity)
-                        .setTitle(clickedMenu.name)
-                        .setMessage("ID: ${clickedMenu.id}\n Name: ${clickedMenu.name}")
-                        .setPositiveButton("OK") { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        .show()
+//                    AlertDialog.Builder(this@HomeActivity)
+//                        .setTitle(clickedMenu.name)
+//                        .setMessage("ID: ${clickedMenu.id}\n Name: ${clickedMenu.name}")
+//                        .setPositiveButton("OK") { dialog, _ ->
+//                            dialog.dismiss()
+//                        }
+//                        .show()
                 }
 
             }

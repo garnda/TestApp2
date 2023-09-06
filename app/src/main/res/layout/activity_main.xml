@@ -41,6 +41,8 @@
                 android:id="@+id/etInputUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:padding="16dp"
                 android:hint="Username" />
 
             <EditText
@@ -48,6 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                android:textSize="18sp"
+                android:padding="16dp"
                 android:hint="Password" />
 
             <Button

@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import eu.tutorials.testapp.databinding.RecycleCardsBinding
+import eu.tutorials.testapp.utils.Pokemon
 import kotlinx.android.extensions.LayoutContainer
 
 
 class HomeAdapter: RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
     var listMenu = listOf<Menu>()
     var onItemClick: ((Menu) -> Unit)? = null
+    var listPokemon = listOf<Pokemon>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val binding = RecycleCardsBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -22,11 +24,11 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-       holder.bindUi(listMenu[position])
+       holder.bindUi(listPokemon[position])
     }
 
     override fun getItemCount(): Int {
-       return listMenu.size
+       return listPokemon.size
     }
 
 
@@ -36,14 +38,14 @@ inner class HomeViewHolder(val binding: RecycleCardsBinding): ViewHolder(binding
     override val containerView: View
         get() = itemView
 
-    internal fun bindUi(menu: Menu) {
-       binding.tvMenu.text = menu.name
-        binding.ivMenuImage.setImageResource(menu.imageUrl)
+    internal fun bindUi(pokemon: Pokemon) {
+       binding.tvMenu.text = pokemon.name
+//        binding.ivMenuImage.setImageResource(menu.imageUrl)
 
-        binding.cardMenu.setOnClickListener {
-            onItemClick?.invoke(menu)
-            Log.d("MENU", ">> ${menu} ")
-        }
+//        binding.cardMenu.setOnClickListener {
+//            onItemClick?.invoke(menu)
+//            Log.d("MENU", ">> ${menu} ")
+//        }
 
         }
     }

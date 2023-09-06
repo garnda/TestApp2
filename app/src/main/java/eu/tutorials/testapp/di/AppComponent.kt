@@ -14,7 +14,8 @@ import eu.tutorials.testapp.di.module.*
         AndroidInjectionModule::class,
         AppModule::class,
         ActivityModule::class,
-        StorageModule::class
+        StorageModule::class,
+        NetworkModule::class
     ]
 )
 interface AppComponent : AndroidInjector<AwesomeApplication> {

@@ -61,8 +61,6 @@ class DetailMenuActivity : AppCompatActivity() {
     private fun  replaceFragment(fragment: Fragment){
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-////        val menuDescriptionFragment = MenuDescriptionFragment()
-////        fragmentTransaction.replace(R.id.fragment_container, menuDescriptionFragment)
         fragmentTransaction.replace(binding.fragmentContainer.id, fragment)
         fragmentTransaction.commit()
 

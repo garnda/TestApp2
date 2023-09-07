@@ -12,5 +12,4 @@ class MenuDescriptionFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_menu_description, container, false)
     }
 
-    // fragment logic
 }

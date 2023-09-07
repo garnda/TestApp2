@@ -1,6 +1,7 @@
 package eu.tutorials.testapp
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +15,7 @@ import eu.tutorials.testapp.ui.login.MainViewModel
 import eu.tutorials.testapp.utils.ActivityViewModelFactory
 import javax.inject.Inject
 import androidx.core.os.bundleOf
+import androidx.recyclerview.widget.RecyclerView
 import eu.tutorials.testapp.utils.Pokemon
 
 class HomeActivity : DaggerAppCompatActivity() {
@@ -22,22 +24,54 @@ class HomeActivity : DaggerAppCompatActivity() {
 
     private lateinit var vm:HomeViewModel
     private lateinit var binding: ActivityHomeBinding
+    private var isLoading = false
+    private var limit: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vm = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        vm.fetchPokemonList(20,0)
+        this.limit = 20
+        vm.fetchPokemonList(limit,0)
         initView()
+
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                // Check if it's time to load more data
+                if (!isLoading && (visibleItemCount + firstVisibleItemPosition) >= totalItemCount) {
+
+
+                    loadMoreData()
+                    isLoading = true
+                }
+            }
+        })
+
         vm.onPokemonListLoaded.observe(this) { pokemonList ->
-            // Handle the updated Pokemon list here...
+            isLoading = false
+        }
+
+    }
+
+    private fun initView() {
+
+        vm.onPokemonListLoaded.observe(this) { pokemonList ->
             Log.d("Pokelist", "$pokemonList")
+
             binding.recyclerView.apply {
                 adapter = HomeAdapter().apply {
-                    Log.d("TAG", "initView: $pokemonList")
+                    Log.d("TAG:DATA", "initView: $pokemonList")
                     if (pokemonList != null) {
                         val menuList = pokemonList.mapIndexed { index, pokemon ->
-                Pokemon(pokemon.name, pokemon.url)
+                            Pokemon(pokemon.name, pokemon.url)
                         }
                         listPokemon = menuList
                     }
@@ -48,56 +82,24 @@ class HomeActivity : DaggerAppCompatActivity() {
 
             }
         }
+
+
     }
 
-    private fun initView() {
-        val menuList = listOf(
-            Menu(1, "One", R.drawable.cake,"cake"),
-            Menu(2, "Two" , R.drawable.cupcake,"cupcake"),
-            Menu(3,"Three",R.drawable.pudding,"pudding"),
-            Menu(4,"Four",R.drawable.cake,"cake"),
-            Menu(5,"Five",R.drawable.cake,"cake")
-        )
-        val menuItem = listOf(
-            "A","B","C","D"
-        )
+    private fun loadMoreData() {
+        if (!isLoading) {
+            isLoading = true
+            Log.d("LOAD", "Loadmore DATA")
+            val nextUrl = vm.urlLoading.value
+                val uri = Uri.parse(nextUrl)
+                val limit = uri.getQueryParameter("limit")?.toIntOrNull() ?: 20
+                val offset = uri.getQueryParameter("offset")?.toIntOrNull() ?: 0
+                vm.fetchPokemonList(limit, offset)
+//                Log.d("TRICK OBSERVE", "LOAD DATA >>>>>>>>>")
 
-//        binding.recyclerView.apply {
-//            adapter = HomeAdapter().apply {
-//                listMenu = menuList
-//                onItemClick = { clickedMenu ->
-//                    val bundle = bundleOf("MENU" to clickedMenu)
-//                    val intent = Intent(this@HomeActivity, DetailMenuActivity::class.java).apply {
-//                        putExtra("MENU", clickedMenu)
-//                    }
-//                    startActivity(intent)
-//
-//                }
-//
-//            }
-//            layoutManager = LinearLayoutManager(context)
-//        }
-                var data = vm.onPokemonListLoaded.value
-                binding.recyclerView.apply {
-                    adapter = HomeAdapter().apply {
-                        Log.d("TAG", "initView: $data")
-                        if (data != null) {
-                            listPokemon = data
-                        }
-//                        onItemClick = { clickedMenu ->
-//                            val bundle = bundleOf("MENU" to clickedMenu)
-//                            val intent = Intent(this@HomeActivity, DetailMenuActivity::class.java).apply {
-//                                putExtra("MENU", clickedMenu)
-//                            }
-//                            startActivity(intent)
-//
-//                        }
+        }
 
-                    }
-                    layoutManager = LinearLayoutManager(context)
-
-
-            }
     }
+
 
 }

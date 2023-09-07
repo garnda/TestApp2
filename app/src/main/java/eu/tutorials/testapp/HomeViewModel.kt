@@ -61,22 +61,18 @@ class HomeViewModelImpl  @Inject constructor(
                 call: Call<PokemonResponse>,
                 response: Response<PokemonResponse>
             ) {
-                Log.d("res>", "${response.body()}")
+                Log.d("res>", "${response}")
                 Log.d("res isSuccessful>", "${response.isSuccessful}")
                 if (response.isSuccessful) {
-                  val newPokemonList = response.body()?.results ?: emptyList()
+                    val newPokemonList = response.body()?.results ?: emptyList()
+                    Log.d("API Call", "Received data: $newPokemonList")
+                    val existingList = onPokemonListLoaded.value ?: emptyList()
+                    val updatedList = existingList.toMutableList()
+                    updatedList.addAll(newPokemonList)
+                    _onPokemonListLoaded.value = updatedList
 
                     Log.d("API Call", "Received data: $_onPokemonListLoaded")
-//                    _onPokemonListLoaded.value = newPokemonList
-                    // Append the new data to your existing list
-//                    val existingList = onPokemonListLoaded.value ?: emptyList()
-//                    val updatedList = existingList.toMutableList()
-//                    updatedList.addAll(newPokemonList)
-//                    _onPokemonListLoaded.value = updatedList
-//
-//                    val newPokemonList = response.body()?.results ?: emptyList()
-//                    // Update _onPokemonListLoaded here
-                    _onPokemonListLoaded.postValue(newPokemonList)
+                    _urlLoading.value = response.body()?.next ?: null
                 } else {
                     Log.d("API Call", "Error response: ${response.code()}")
                     _onApiError.value = "API Error"

@@ -74,6 +74,15 @@ class HomeActivity : DaggerAppCompatActivity() {
                             Pokemon(pokemon.name, pokemon.url)
                         }
                         listPokemon = menuList
+
+                        onItemClick = { clickedMenu ->
+                            val bundle = bundleOf("POKEMON" to clickedMenu)
+                            val intent =
+                                Intent(this@HomeActivity, DetailMenuActivity::class.java).apply {
+                                    putExtra("POKEMON", clickedMenu)
+                                }
+                            startActivity(intent)
+                        }
                     }
 
                 }

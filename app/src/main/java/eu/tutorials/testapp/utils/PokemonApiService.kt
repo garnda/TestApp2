@@ -9,4 +9,7 @@ interface PokemonApiService {
         @Query("limit") limit: Int,
         @Query("offset") offset: Int = 0
     ): Call<PokemonResponse>
+
+//    @GET("pokemonDetail")
+//    fun getPokemonDetail():Call<PokemonResponse>
 }

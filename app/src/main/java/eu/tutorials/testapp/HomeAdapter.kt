@@ -13,7 +13,6 @@ import kotlinx.android.extensions.LayoutContainer
 
 
 class HomeAdapter: RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
-    var listMenu = listOf<Menu>()
     var onItemClick: ((Pokemon) -> Unit)? = null
     var listPokemon = listOf<Pokemon>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
@@ -44,16 +43,17 @@ inner class HomeViewHolder(val binding: RecycleCardsBinding): ViewHolder(binding
 
         val url = pokemon.url
         val parts = url.split("/")
-        Log.d("pokemonNumber", ">> ${parts}")
         val pokemonNumber = parts.getOrNull(parts.size - 2)?.toIntOrNull()
         val imageUrl =
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$pokemonNumber.png"
         if (pokemonNumber != null) {
             Glide.with(binding.ivMenuImage.context)
-                .load(imageUrl) // Replace 'menu.imageUrl' with the actual image URL
+                .load(imageUrl)
+                .thumbnail(0.2f)
+                .placeholder(R.drawable.loading)
+                .error(R.drawable.cake)
                 .into(binding.ivMenuImage)
-            Glide.with(binding.ivMenuImage.context)
-        }else{
+        } else {
             binding.ivMenuImage.setImageResource(R.drawable.cake)
         }
 
@@ -62,8 +62,6 @@ inner class HomeViewHolder(val binding: RecycleCardsBinding): ViewHolder(binding
             onItemClick?.invoke(pokemon)
             Log.d("POKEMON'S", ">> ${pokemon} ")
         }
-
-
 
         }
     }
